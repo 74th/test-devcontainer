@@ -1,0 +1,4 @@
+- postCreateCommand の実行ユーザは root か？
+  - vscodeユーザである
+- postCreateCommand はDockerイメージのレイヤーになるか？
+  - ならない
