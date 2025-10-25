@@ -1,6 +1,7 @@
 #!/bin/bash
 set -ex
 
+docker context use docker-desktop
 docker run --rm \
     -e NAME=dockerdesktop_mac_with_delegated_option \
     --mount type=bind,source=$(pwd),target=/workspace,consistency=delegated \

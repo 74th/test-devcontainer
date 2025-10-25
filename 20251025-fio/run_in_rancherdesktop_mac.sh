@@ -1,9 +1,9 @@
 #!/bin/bash
 set -ex
 
-docker context use docker-desktop
+docker context use rancher-desktop
 docker run --rm \
-    -e NAME=dockerdesktop_mac_with_cached_option \
+    -e NAME=rancher_desktop_mac \
     --mount type=bind,source=$(pwd),target=/workspace \
     -w /workspace \
     fio-devcontainer \

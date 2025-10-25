@@ -1,9 +1,9 @@
 #!/bin/bash
 set -ex
 
-docker context use docker-desktop
+docker context use colima
 docker run --rm \
-    -e NAME=dockerdesktop_mac_with_cached_option \
+    -e NAME=colima \
     --mount type=bind,source=$(pwd),target=/workspace \
     -w /workspace \
     fio-devcontainer \

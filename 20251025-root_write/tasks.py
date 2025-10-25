@@ -105,7 +105,7 @@ def test(
                 )
 
         c.run(f"{compose_command} down")
-        c.run(f"{compose_command} rm -y")
+        c.run(f"{compose_command} rm")
 
     if _run_only is None or _run_only == 5:
         r = c.run(f"{docker_command} run --rm --platform linux/amd64 debian uname -a")
@@ -129,7 +129,7 @@ def run_podman(c: Context, run_only: str | None = None):
         c,
         "podman",
         docker_command="podman",
-        compose_command="PODMAN_COMPOSE_PROVIDER=podman-compose podman compose",
+        compose_command="podman compose",
         run_only=run_only,
     )
 
