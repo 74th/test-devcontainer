@@ -1,5 +1,7 @@
 #!/bin/bash
 set -ex
+CONTAINER_UID=`id -u`
+CONTAINER_GID=`id -g`
 echo hoge > ./${TARGET}
-chown `id -u`:`id -g` ./${TARGET}
-ls -al ./tmp/
+chown ${CONTAINER_UID}:${CONTAINER_GID} ./${TARGET}
+ls -al ./tmp

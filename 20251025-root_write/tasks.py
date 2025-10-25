@@ -14,12 +14,6 @@ def get_local_uid_gid(c: Context) -> tuple[int, int]:
     return local_uid, local_gid
 
 
-def write(c: Context, target_name: str, docker_command: str = "docker"):
-    c.run(
-        f"{docker_command} run --rm -v $(pwd):/workspace -e TARGET=tmp/{target_name}.txt -w /workspace debian bash test_write.sh"
-    )
-
-
 def test(
     c: Context,
     target_name: str,
@@ -34,16 +28,42 @@ def test(
 
         local_uid, local_gid = get_local_uid_gid(c)
 
-        write(c, target_name, docker_command=docker_command)
+        c.run(
+            f"{docker_command} run --rm -v $(pwd):/workspace -e TARGET=tmp/{target_name}.txt -w /workspace debian bash test_write.sh"
+        )
 
         stat = os.stat(f"tmp/{target_name}.txt")
 
         if stat.st_uid != local_uid:
             print(
-                f"- Test1: ❌ Error UID mismatch! local_uid={local_uid} uid={stat.st_uid}"
+                f"- Test1-1: ❌ Error UID mismatch! local_uid={local_uid} uid={stat.st_uid}"
             )
         else:
-            print(f"- Test1: ✅ used same UID: local_uid={local_uid} uid={stat.st_uid}")
+            print(
+                f"- Test1-1: ✅ used same UID: local_uid={local_uid} uid={stat.st_uid}"
+            )
+
+        c.run("sudo rm -rf tmp/*.txt", warn=True)
+
+        r = c.run(
+            f"{docker_command} run --rm --user {local_uid}:{local_gid} -v $(pwd):/workspace -e TARGET=tmp/{target_name}.txt -w /workspace debian bash test_write.sh",
+            warn=True,
+        )
+        assert r is not None
+
+        if r.ok:
+            stat = os.stat(f"tmp/{target_name}.txt")
+
+            if stat.st_uid != local_uid:
+                print(
+                    f"- Test1-2: ❌ Error UID mismatch! local_uid={local_uid} uid={stat.st_uid}"
+                )
+            else:
+                print(
+                    f"- Test1-2: ✅ used same UID: local_uid={local_uid} uid={stat.st_uid}"
+                )
+        else:
+            print("- Test1-2: ❌ cannot write using local_uid, local_gid")
 
     if _run_only is None or _run_only == 2:
         c.run(f"{docker_command} run -d -p 8080:80 --name nginx-test nginx:latest")
@@ -66,7 +86,7 @@ def test(
 
         if _run_only is None or _run_only == 3:
             r = c.run("curl -s http://localhost:8080")
-            assert r
+            assert r is not None
             if r.ok:
                 print("- Test3: ✅ can access nginx by http://localhost:8080")
             else:
@@ -74,7 +94,7 @@ def test(
 
         if _run_only is None or _run_only == 4:
             r = c.run(f"{compose_command} exec -it dev curl -s http://nginx")
-            assert r
+            assert r is not None
             if r.ok:
                 print(
                     "- Test4: ✅ can access nginx by http://nginx inside dev container"
@@ -89,7 +109,7 @@ def test(
 
     if _run_only is None or _run_only == 5:
         r = c.run(f"{docker_command} run --rm --platform linux/amd64 debian uname -a")
-        assert r
+        assert r is not None
         if r.ok and r.stdout.count("x86_64"):
             print("- Test5: ✅ can run amd64 container")
         else:
