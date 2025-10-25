@@ -52,9 +52,16 @@ def test(c: Context, target_name: str, docker_command: str="docker", compose_com
     r = c.run("curl -s http://localhost:8080", warn=True)
     assert r
     if r.ok:
-        print("- Test3: ✅ can access nginx by localhost:8080")
+        print("- Test3: ✅ can access nginx by http://localhost:8080")
     else:
-        print("- Test3: ❌ Error: cannot access nginx by localhost:8080")
+        print("- Test3: ❌ Error: cannot access nginx by http://localhost:8080")
+
+    r = c.run(f"{compose_command} exec -it dev curl -s http://nginx", warn=True)
+    assert r
+    if r.ok:
+        print("- Test4: ✅ can access nginx by http://nginx inside dev container")
+    else:
+        print("- Test4: ❌ Error: cannot access nginx by http://nginx inside dev container")
 
     c.run(f"{compose_command} down")
     c.run(f"{compose_command} rm")
@@ -73,5 +80,11 @@ def run_podman(c: Context):
 @task
 def run_rancher_desktop(c: Context):
     c.run("docker context use rancher-desktop")
+
+    test(c, "rancher-desktop")
+
+@task
+def run_colima(c: Context):
+    c.run("docker context use colima")
 
     test(c, "rancher-desktop")
