@@ -1,0 +1,32 @@
+sequential-read: (g=0): rw=read, bs=(R) 20.0MiB-20.0MiB, (W) 20.0MiB-20.0MiB, (T) 20.0MiB-20.0MiB, ioengine=posixaio, iodepth=1
+fio-3.36
+Starting 1 process
+sequential-read: Laying out IO file (1 file / 10240MiB)
+
+sequential-read: (groupid=0, jobs=1): err= 0: pid=4502: Sat Oct 25 02:35:43 2025
+  read: IOPS=174, BW=3497MiB/s (3667MB/s)(10.0GiB/2928msec)
+    slat (nsec): min=2417, max=79004, avg=3469.71, stdev=3439.92
+    clat (usec): min=1821, max=10901, avg=5713.05, stdev=2057.62
+     lat (usec): min=1824, max=10905, avg=5716.52, stdev=2057.52
+    clat percentiles (usec):
+     |  1.00th=[ 1909],  5.00th=[ 2024], 10.00th=[ 2114], 20.00th=[ 2638],
+     | 30.00th=[ 5473], 40.00th=[ 6456], 50.00th=[ 6652], 60.00th=[ 6849],
+     | 70.00th=[ 7111], 80.00th=[ 7308], 90.00th=[ 7504], 95.00th=[ 7635],
+     | 99.00th=[ 7898], 99.50th=[ 8160], 99.90th=[10945], 99.95th=[10945],
+     | 99.99th=[10945]
+   bw (  MiB/s): min= 2749, max= 3976, per=89.94%, avg=3145.61, stdev=502.90, samples=5
+   iops        : min=  137, max=  198, avg=156.80, stdev=25.04, samples=5
+  lat (msec)   : 2=3.32%, 4=21.09%, 10=75.39%, 20=0.20%
+  cpu          : usr=0.14%, sys=0.03%, ctx=512, majf=0, minf=63
+  IO depths    : 1=100.0%, 2=0.0%, 4=0.0%, 8=0.0%, 16=0.0%, 32=0.0%, >=64=0.0%
+     submit    : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     complete  : 0=0.0%, 4=100.0%, 8=0.0%, 16=0.0%, 32=0.0%, 64=0.0%, >=64=0.0%
+     issued rwts: total=512,0,0,0 short=0,0,0,0 dropped=0,0,0,0
+     latency   : target=0, window=0, percentile=100.00%, depth=1
+
+Run status group 0 (all jobs):
+   READ: bw=3497MiB/s (3667MB/s), 3497MiB/s-3497MiB/s (3667MB/s-3667MB/s), io=10.0GiB (10.7GB), run=2928-2928msec
+
+Disk stats (read/write):
+    dm-0: ios=8305/0, sectors=17899560/0, merge=0/0, ticks=41251/0, in_queue=41251, util=95.33%, aggrios=18981/0, aggsectors=20971568/0, aggrmerge=0/0, aggrticks=82588/0, aggrin_queue=82588, aggrutil=87.97%
+  sda: ios=18981/0, sectors=20971568/0, merge=0/0, ticks=82588/0, in_queue=82588, util=87.97%

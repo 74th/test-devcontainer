@@ -61,5 +61,5 @@ fio -io_size=1g \
     -directory=${DATA_DIR} \
     -bs=4k \
     -numjobs=16 \
-    -name=random-read-4KB-16Thread \
+    -name=random-write-4KB-16Thread \
     -output=results/${NAME}-random-write-4K-16Thread.txt
