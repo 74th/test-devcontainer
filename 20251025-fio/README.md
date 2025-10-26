@@ -40,3 +40,10 @@
 
 Docker Desktop (Synclonized file shares)が性能でないのが納得感がない。
 ファイル数が多い場合に効果があるという感じなのかもしれない。
+
+## ちなみにLinuxマシン上でも測った
+
+NIPOGI ミニpc E3B-7430-16GB+512GB
+
+- `92k`: Lnux Host
+- `98k`: Lnux Docker
