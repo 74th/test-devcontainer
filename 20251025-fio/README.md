@@ -43,7 +43,7 @@ Docker Desktop (Synclonized file shares)が性能でないのが納得感がな�
 
 ## ちなみにLinuxマシン上でも測った
 
-NIPOGI ミニpc E3B-7430-16GB+512GB
+NIPOGI ミニpc E3B-7430-16GB+512GB、Ubuntu 24.04 LTS、docker 27.5.1
 
 - `92k`: Lnux Host
 - `98k`: Lnux Docker
