@@ -1,0 +1,6 @@
+{
+    "dockerComposeFile": ["../compose.yml", "./compose.override.yml"],
+    "service": "dev",
+    "workspaceFolder": "/workspace",
+    "remoteUser": "vscode"
+}
