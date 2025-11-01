@@ -7,3 +7,4 @@
 - Colima(macOS)
 - Podman(macOS)
 - Finch(macOS)
+- Rancher Desktop(macOS)
